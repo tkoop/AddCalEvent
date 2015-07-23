@@ -113,9 +113,6 @@
 		_attach: function() {
 			var self = this;
 
-			// handle clicking on a calendar link
-			this.el.on('click', '.ace_opt', function(event){self._click(this, event);});
-
 			// handle opening and closing the dropdown - always available for accessiblity
 			this.el.on('click', function(event){self._clickShow(event);});
 			$(document).on('click', function(){self._hide();});
@@ -173,9 +170,12 @@
 
 		// create the dropdown
 		_createDropdown: function(showOpts) {
+			var self = this;
 			var isValid = this._sanitizeData();
 			this._disable(!isValid);
 			this.dd = $(this._createHtml(isValid));
+			this.dd.find(".ace_opt").click(function(event){self._click(this, event);});
+
 //			this.el.append(this.dd);
 			$("body").append(this.dd);
 			this.ddCss = {
@@ -446,8 +446,8 @@
 			evtObj.data = this.options.data;
 			$(document).trigger(evt, evtObj);
 			if(window.console){
-				window.console.log(evt);
-				window.console.log(evtObj);
+		//		window.console.log(evt);
+		//		window.console.log(evtObj);
 			}
 		},
 
